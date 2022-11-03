@@ -1,0 +1,89 @@
+---
+title: "Assignment-B1"
+author: "Jade"
+date: "2022-10-27"
+output: github_document
+---
+
+```{r}
+library(datateachr)
+library(tidyverse)
+library(devtools)
+library(testthat)
+```
+
+#Exercise 1: Make a Function (25 points)
+```{r}
+quick_group_summarise <- function(data, x, y) {
+  data %>%
+  group_by({{x}}) %>%
+  summarise(mean = mean({{y}}, na.rm = TRUE))
+  }
+```
+
+#Exercise 2: Document your Function (20 points)
+```{r}
+#' Quick Group By and Summarize a Mean 
+#' 
+#' This function first groups by one variable in your data set (x). Then, it summarizes the mean of a chosen numeric variable (y) for each value in the grouped by variable (x) and produces a new tibble. 
+#'
+#' @param data #The data set you would like to work with. #I named this argument "data" because I think it is simple and descriptive. This is where people will put the dataset that they would like to use. 
+#' @param x #Any variable from your data set that you would like to examine. #I named this argument "x" because it follows the general format of x, y arguments that appear in other functions. For instance, if you want to plot the data used in this function, the aes(x, y) component also follows this same format.
+#' @param y #Any numeric variable from your data set. #I named this argument "y" for the same reason I named the above argument "x". It follows the general format of x, y arguments that appear in other functions. For instance, if you want to plot the data used in this function, the aes(x, y) component also follows this same format. I want to make it clean and as easy to use and understand as possible.
+#'
+#' @return #This function will return a tibble that shows the grouped by variable (x) and the corresponding mean of the numeric variable (y). There will only be two columns in this new tibble. 
+
+quick_group_summarise <- function(data, x, y) {
+  data %>%
+  group_by({{x}}) %>%
+  summarise(mean = mean({{y}}, na.rm = TRUE))
+  }
+```
+
+#Exercise 3: Include Examples (15 points)
+```{r}
+quick_group_summarise(steam_games, genre, original_price)
+
+#In this example I am testing whether the function works
+
+quick_group_summarise(steam_games, languages, original_price)
+
+#In this example I am testing whether the function still works with a different x variable chosen 
+
+quick_group_summarise(vancouver_trees, genus_name, diameter)
+
+#In this example I am testing whether the function still works with an entirely different dataset 
+
+quick_group_summarise(vancouver_trees, genus_name, diameter) %>%
+    ggplot(aes(genus_name, mean)) +
+    geom_point()
+
+#In this example I am testing whether I can use my new function to speed up the process of creating a plot 
+
+quick_group_summarise(steam_games, genre, discount_price) %>%
+    ggplot(aes(genre, mean)) +
+    geom_point()
+
+#In this example I am testing the use of the function in creating a plot with a different dataset  
+```
+
+#Exercise 4: Test the Function (25 points)
+```{r}
+test_that("Warning occurs when Y is not numeric", 
+{expect_warning(quick_group_summarise(steam_games, genre, languages))}) 
+
+test_that("Error occurs when data is not included", 
+{expect_error(quick_group_summarise(genre, original_price))}) 
+
+test_that("Name of the y variable changes to mean", 
+{expect_named(quick_group_summarise(steam_games, genre, original_price), c("genre", "mean"))}) 
+
+test_that("All Previous Tests Pass Together", 
+          {expect_warning(quick_group_summarise(steam_games, genre, languages))
+            expect_error(quick_group_summarise(genre, original_price))
+            expect_named(quick_group_summarise(steam_games, genre, original_price), c("genre", "mean"))})
+
+```
+
+
+
