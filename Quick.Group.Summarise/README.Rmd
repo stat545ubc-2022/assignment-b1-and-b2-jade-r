@@ -1,0 +1,37 @@
+---
+output: github_document
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# Quick.Group.Summarise
+
+The goal of Quick.Group.Summarise is to take your specified data set and group by a variable you specify (x) and then summarise the mean of another variable you specify (y) across x. It will output a new tibble. 
+
+## Installation
+
+You can install the development version of Quick.Group.Summarise from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("stat545ubc-2022/assignment-b1-and-b2-jade-r")
+```
+
+## Example
+
+This is a basic example which shows you how to use the code:
+
+```{r example}
+library(Quick.Group.Summarise)
+
+quick_group_summarise(datateachr::steam_games, genre, original_price)
+#This example should produce a tibble with the mean price for each genre
+```
+

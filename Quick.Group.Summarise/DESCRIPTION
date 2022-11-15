@@ -1,0 +1,17 @@
+Package: Quick.Group.Summarise
+Title: An R Package for Grouping By and Summarizing a Mean
+Version: 0.1.0
+Authors@R: 
+    person("Jade", "Radke", , "jade88@student.ubc.ca", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: Takes your specified data set and groups by a variable you specify (x) and then summarizes the mean of another variable you specify (y) across x.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1
+Imports: dplyr,
+        magrittr,
+        datateachr
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
